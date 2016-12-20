@@ -22,19 +22,22 @@ try {
 	// set timezone to Egypt to get date correct
 	date_default_timezone_set("Egypt");
 
+	// center the text:
+	$printer -> setJustification(Printer::JUSTIFY_CENTER);
+
 	// title
 	$printer -> setTextSize(5, 5);
-	$printer -> text("  StARS\n");
+	$printer -> text("StARS\n");
 	$printer -> setTextSize(2, 2);
-	$printer -> text("  PS / RLAP Reception" . "\n\n");
+	$printer -> text("PS / RLAP Reception" . "\n\n");
 
 	// client index - in txt file
 	$printer -> setTextSize(5, 5);
-	$printer -> text("   " . readIndex() . "\n");
+	$printer -> text(readIndex() . "\n");
 
 	// print date
 	$printer -> setTextSize(1, 1);
-	$printer -> text("               " . date("d-M-Y") . "\n");
+	$printer -> text(date("d-M-Y") . "\n");
 	
 	// cut paper & close printer connection
 	$printer -> cut();
