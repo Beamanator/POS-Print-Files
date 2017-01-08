@@ -3,9 +3,11 @@
 **How to use POSprint**
 
 In order to get POSprint to function properly, you need to make sure:
-1) Python can be accessed from the folder
-2) PHP can be accessed from the folder
-  * A quick test to make sure your folder has php access is to run "php testphp.php" via the command line in Windows
+
+1) Python 2.7 is installed on your computer and can be accessed from the folder
+2) PHP is installed and make sure it can be accessed from the folder
+3) Edit the php.ini file - make sure extension_dir points to the correct directory of extensions
+4) Edit the php.ini file - uncomment the line 'extension=php_mbstring.dll' so that the php script can use that extension
   
 Before printing, make sure:
 1) the txt document & php document contain the data you want to print
