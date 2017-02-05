@@ -2,15 +2,16 @@
 
 **How to use POSprint**
 
-In order to get POSprint to function properly, you need to make sure:
+In order to get POSprint to function properly, you should follow these steps:
 
 1. Install printer driver software
 2. Make sure printer is shared, make sure you remember the shared name
 3. Python 2.7 is installed on your computer and can be accessed from the folder
 4. PHP is installed and make sure it can be accessed from the folder
-5. Edit the php.ini file - make sure extension_dir points to the correct directory of extensions
-6. Edit the php.ini file - uncomment the line 'extension=php_mbstring.dll' so that the php script can use that extension
-7. You may have to install microsoft redistributable packages if you don't have microsoft visual studio already installed on your machine
+ - Edit the php.ini file - make sure extension_dir points to the correct directory of extensions
+ - Edit the php.ini file - uncomment the line 'extension=php_mbstring.dll' so that the php script can use that extension
+5. You may have to install microsoft redistributable packages if you don't have microsoft visual studio already installed on your machine.
+ - I've had trouble using the redistributable packages, so I just install the full MSV program.
 
 Before printing, make sure:
 
