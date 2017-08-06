@@ -4,14 +4,23 @@
 
 In order to get POSprint to function properly, you should follow these steps:
 
-1. Install printer driver software
+1. Install printer driver software (right-click, run as admin)
+ - on Devices and Printers, you will probably see 2 devices (1 printer, 1 unknown device when printer plugged in)
+ - Printer model = 80 Series (POS88V)
 2. Make sure printer is shared, make sure you remember the shared name
-3. Python 2.7 is installed on your computer and can be accessed from the folder
-4. PHP is installed and make sure it can be accessed from the folder
+ - Go to Devices and Printers
+ - Add a Printer
+ - New -> Use existing Port (USB001)
+ - Generic -> Generic / Text Only
+ - Use driver already installed (from step #1)
+ - Name & share the printer "SPRT POS Printer"
+3. Python 2.7 is installed on your computer and can be accessed from the folder (add to PATH)
+4. PHP doesn't need to be 'installed', just some files need to be configured
  - Edit the php.ini file - make sure extension_dir points to the correct directory of extensions
  - Edit the php.ini file - uncomment the line 'extension=php_mbstring.dll' so that the php script can use that extension
+ - Edit the POSprint.php file - make sure line 16 has same name of printer created in step 2 (probably 'SPRT POS Printer')
 5. You may have to install microsoft redistributable packages if you don't have microsoft visual studio already installed on your machine.
- - I've had trouble using the redistributable packages, so I just install the full MSV program.
+ - I've had trouble using the redistributable packages, so I just installed the full program.
 
 Before printing, make sure:
 
