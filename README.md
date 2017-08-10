@@ -14,7 +14,8 @@ In order to get POSprint to function properly, you should follow these steps:
     - Generic -> Generic / Text Only
     - Use driver already installed (from step #1)
     - Name & share the printer "SPRT POS Printer"
-3. Python 2.7 is installed on your computer and can be accessed from the folder (add to PATH)
+3. **Python 2.7** is installed on your computer and can be accessed from the folder (add to PATH)
+    - Note: Make sure you're installing the correct version of Python! This has only been tested with v2.7
 4. PHP doesn't need to be 'installed', just some files need to be configured
     - Edit the php.ini file - make sure extension_dir points to the correct directory of extensions
     - Edit the php.ini file - uncomment the line 'extension=php_mbstring.dll' so that the php script can use that extension
