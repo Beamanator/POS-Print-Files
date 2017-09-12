@@ -9,8 +9,17 @@ from subprocess import Popen
 from Tkinter import *
 import tkFont
 
+# import random class for randomizing numbers
+import random
+
 # os is used for getting the current path (cwd)
 import os
+
+#########################################################################
+#                     ABDELFATAH - HOMEWORK BELOW                       #
+#########################################################################
+# 1) Incremental Counter
+# 2) Print / write to new incremental counter file
 
 # =============================== Main App class for GUI ==================================
 class App:
@@ -23,7 +32,9 @@ class App:
 
     def POSPrint(self):
         """ Print index by calling .bat which calls php file """
+        # get client index from input text box
         cid = self.client_next_val.get()
+        
         # set last printed # to current index:
         self.client_previous_val.set(cid)
 
@@ -43,12 +54,78 @@ class App:
         p = Popen("POSprint.bat", cwd=r"" + mycwd)
         stdout, stderr = p.communicate()
 
+    def POSPrintRand(self):
+        """ Print (random) index like above - POSPrint """
+        # get 'from' and 'to' values from text boxes
+        rand_from = self.rand_from_val.get()
+        rand_to = self.rand_to_val.get()
+
+        # check if 
+        if rand_from == '' or rand_to == '':
+            print 'Must enter "from" and "to" values'
+            self.UpdateRandStringText('Error - see console')
+            return
+
+        rand_from = int(rand_from)
+        rand_to = int(rand_to)
+
+        # if rand array index is -1, need to create rand array and set index to 0
+        if self.rand_array_index == -1:
+            # get random number array
+            self.rand_array = random.sample( range(rand_from, rand_to), (rand_to - rand_from) )
+
+            # set index to 0
+            self.rand_array_index = 0
+
+        # increment until out of bounds
+        elif self.rand_array_index + 1 < len(self.rand_array):
+            self.rand_array_index += 1
+
+        else:
+            self.UpdateRandStringText('Click "Reset" Button')
+            return
+
+        # update 'from' and 'to' labels
+        self.UpdateRandStringIndices( self.rand_array_index + 1, len(self.rand_array) )
+
+        next_val = self.rand_array[ self.rand_array_index ]
+
+        # update client_previous_val to next_num [after making sure this num hasn't been printed]
+        self.client_previous_val.set( str(next_val) )
+
     def ResetClientIndex(self):
         """ Resets the client index in GUI - Not in txt file """
         self.client_next_val.set("00")
         self.client_previous_val.set("")
+
+        self.rand_from_val.set("")
+        self.rand_to_val.set("")
+
+        self.rand_array = []
+
+        self.UpdateRandStringText('')
+
         # Don't need to reset file since the file gets changed in other function
         #  when print button is clicked
+
+    def UpdateRandStringIndices(self, first, second):
+        """ Update the string that displays current index of printing """
+        # create new string (+ is for concatenating strings)
+        new_text = "Printed ["+str(first)+"] of ["+str(second)+"] #s"
+
+        # update string in GUI
+        self.random_range_label.config(text=new_text)
+
+    def UpdateRandStringText(self, text):
+        """ Update the rand string to some text """
+        # create new string from new text
+        if text == '':
+            new_text = "Printed [0] of [0] #s"
+        else:
+            new_text = text
+
+        # update string in GUI
+        self.random_range_label.config(text=new_text)
 
     def onValidate(self, d, i, P, s, S, v, V, W):
         """ Validate data in client index box, on key press """
@@ -99,6 +176,7 @@ class App:
         self.customFont = tkFont.Font(family="Helvetica", size=18)
         self.buttonFont = tkFont.Font(family="Helvetica", size=18)
         self.largeTextFont = tkFont.Font(family="Helvetica", size=24)
+        self.mediumTextFont = tkFont.Font(family="Helvetica", size=18)
         self.smallTextFont = tkFont.Font(family="Helvetica", size=12)
         
         # Set window details
@@ -128,32 +206,68 @@ class App:
         # Add Print button in middle-bottom
         Button(root, text="Print", padx=20, pady=5, font=self.buttonFont,
                bg="green", command=self.POSPrint
+               ).grid(row=4,column=2)
+        # Button for printing random numbers:
+        Button(root, text="Print Rand", padx=0, pady=0, font=self.buttonFont,
+               bg="cyan", command=self.POSPrintRand
                ).grid(row=4,column=1)
 
         # Add labels
         Label(root, text="Next Client # to print:",
               font=self.largeTextFont, padx=10
-              ).grid(row=1,column=1)
+              ).grid(row=1,column=2)
         Label(root, text="Last # printed:",
               font=self.smallTextFont, padx=100
-              ).grid(row=2,column=1,sticky=E+W)
+              ).grid(row=2,column=2,sticky=E+W)
+        # Randomizer Labels
+        Label(root, text="Random #s",
+            font=self.largeTextFont, padx=10
+            ).grid(row=1,column=0)
+        Label(root, text="From:",
+            font=self.smallTextFont, padx=0
+            ).grid(row=2,column=0)
+        Label(root, text="To:",
+            font=self.smallTextFont, padx=0
+            ).grid(row=2,column=1)
+        # split into two lines because .grid() returns object with None type
+        self.random_range_label = Label(root, text="Printed [0] of [0] #s",
+            font=self.smallTextFont, padx=0
+            )
+        self.random_range_label.grid(row=4,column=0)
 
         # Add Entry box for # to print
         self.client_previous_val = StringVar()
         self.client_previous_val.set("")
         self.client_previous = Entry(root, text=self.client_previous_val,
-                            font=self.smallTextFont,
-                            width=4, state="disabled"
-              ).grid(row=2,column=2,sticky=W)
+            font=self.smallTextFont,
+            width=4, state="disabled"
+            ).grid(row=2,column=3,sticky=W)
         # client # to print [with validation in onValidate()]
         valcmd = (root.register(self.onValidate),
                   '%d', '%i', '%P', '%s', '%S', '%v', '%V', '%W')
         self.client_next_val = StringVar()
         self.client_next_val.set("")
         self.client_next = Entry(root, text=self.client_next_val,
-                            font=self.largeTextFont,
-                            width=4, validate="key", validatecommand=valcmd
-              ).grid(row=1,column=2,sticky=W)
+            font=self.largeTextFont,
+            width=4, validate="key", validatecommand=valcmd
+            ).grid(row=1,column=3,sticky=W)
+        # Randomizer for from / to entry boxes
+        self.rand_from_val = StringVar()
+        self.rand_from_val.set("")
+        self.rand_from = Entry(root, text=self.rand_from_val,
+            font=self.mediumTextFont,
+            width=4, validate="key", validatecommand=valcmd
+            ).grid(row=3,column=0)
+        self.rand_to_val = StringVar()
+        self.rand_to_val.set("")
+        self.rand_to = Entry(root, text=self.rand_to_val,
+            font=self.mediumTextFont,
+            width=4, validate="key", validatecommand=valcmd
+            ).grid(row=3,column=1)
+
+        # initialize rand array index
+        self.rand_array_index = -1
+        
         # prepare for printing!
         self.prepPrint()
 
