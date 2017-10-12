@@ -28,12 +28,14 @@ try {
 	// title
 	$printer -> setTextSize(5, 5);
 	$printer -> text("StARS\n");
+
+	// program name
 	$printer -> setTextSize(2, 2);
 	$printer -> text("PS / RLAP Reception" . "\n\n");
 
 	// client index - in txt file
 	$printer -> setTextSize(5, 5);
-	$printer -> text(readIndex() . "\n");
+	$printer -> text(readClientIndex() . "\n");
 
 	// print date
 	$printer -> setTextSize(1, 1);
@@ -46,10 +48,25 @@ try {
 	echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
 }
 
-function readIndex()
+// get program name from txt file
+function readProgramName()
 {
-    $file = fopen("POSprint_ClientIndexHolder.txt", "r") or die("Unable to open file!");
-    $index = fread($file, filesize("POSprint_ClientIndexHolder.txt"));
+	$filename = "POSprint_ProgramHolder.txt";
+	return readFile($filename);
+}
+
+// get client index from txt file
+function readClientIndex()
+{
+	$filename = "POSprint_ClientIndexHolder.txt";
+    return readFile($filename);
+}
+
+// get text from file with name $filename
+function readFile($filename)
+{
+	$file = fopen($filename, "r") or die("Unable to open " . $filename . "!");
+    $index = fread($file, filesize($filename));
     fclose($file);
     return $index;
 }

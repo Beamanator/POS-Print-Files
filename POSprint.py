@@ -16,7 +16,7 @@ import random
 import os
 
 #########################################################################
-#                     ABDELFATAH - HOMEWORK BELOW                       #
+#                            TODO                                       #
 #########################################################################
 # 1) Incremental Counter
 # 2) Print / write to new incremental counter file
@@ -29,6 +29,20 @@ class App:
             f.seek(0)
             f.write(str(cid))
             f.truncate()
+
+    def writeProgramToFile(self):
+        """ Write the current selected program to a file - php will print that file. """
+        with open("POSprint_ProgramHolder.txt", "w") as f:
+            f.seek(0)
+            f.write(self.program.get())
+            f.truncate()
+
+    def TriggerBatchFile(self):
+        """ Triggers batch file """
+        # Actually print index via POS printer via batch
+        mycwd = os.getcwd()
+        p = Popen("POSprint.bat", cwd=r"" + mycwd)
+        stdout, stderr = p.communicate()
 
     def POSPrint(self):
         """ Print index by calling .bat which calls php file """
@@ -49,10 +63,9 @@ class App:
             cid = "0" + str(cid)
         self.client_next_val.set(cid)
 
-        # Actually print index via POS printer via batch
-        mycwd = os.getcwd()
-        p = Popen("POSprint.bat", cwd=r"" + mycwd)
-        stdout, stderr = p.communicate()
+        # finally, write program to file then trigger batch file
+        self.writeProgramToFile()
+        TriggerBatchFile()
 
     def POSPrintRand(self):
         """ Print (random) index like above - POSPrint """
@@ -92,6 +105,10 @@ class App:
 
         # update client_previous_val to next_num [after making sure this num hasn't been printed]
         self.client_previous_val.set( str(next_val) )
+
+        # finally, write program to file then trigger batch file
+        self.writeProgramToFile()
+        #TriggerBatchFile()
 
     def ResetClientIndex(self):
         """ Resets the client index in GUI - Not in txt file """
@@ -171,7 +188,14 @@ class App:
         
     def __init__(self):
         """ Main function - see comments for details """
+        PROGRAMS = [
+            "PS - AFP",
+            "RLAP - RST",
+            "RLAP - RSD"
+        ]
+
         root=Tk()
+        
         # create a custom font
         self.customFont = tkFont.Font(family="Helvetica", size=18)
         self.buttonFont = tkFont.Font(family="Helvetica", size=18)
@@ -264,6 +288,16 @@ class App:
             font=self.mediumTextFont,
             width=4, validate="key", validatecommand=valcmd
             ).grid(row=3,column=1)
+
+        # Create Option dropdown for program names
+        self.program = StringVar()
+        self.program.set(PROGRAMS[0]) # default value
+        # set up OptionMenu
+        option = apply(OptionMenu, (root, self.program) + tuple(PROGRAMS))
+        option.pack()
+        option.config(width=20, height=1, font=self.mediumTextFont)
+        option["menu"].config(font=self.mediumTextFont)
+        option.grid(row=0,column=2)
 
         # initialize rand array index
         self.rand_array_index = -1
