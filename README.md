@@ -28,6 +28,15 @@ Before printing, make sure:
 1. the txt document & php document contain the data you want to print
      * the php file may contain formatting for printed text
 
+# Possible Errors
+
+**Here are some solutions to common errors I've run into:**
+
+1) PHP Warning: (.../autoload.php): failed to open stream: No such file or directory in ...
+    - Make sure line 10 of POSprint.php is looking at the correct directory for escpos-php-development/autoload.php
+2) Error with function readFile()
+    - readFile exists in some other libraries used in this repo, so can't make a new function named readFile
+
 # About
 
 **What is POSprint?**
