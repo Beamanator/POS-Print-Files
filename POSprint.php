@@ -52,18 +52,18 @@ try {
 function getProgramName()
 {
 	$filename = "POSprint_ProgramHolder.txt";
-	return readFile($filename);
+	return readMyFile($filename);
 }
 
 // get client index from txt file
 function getClientIndex()
 {
 	$filename = "POSprint_ClientIndexHolder.txt";
-    return readFile($filename);
+    return readMyFile($filename);
 }
 
 // get text from file with name $filename
-function readFile($filename)
+function readMyFile($filename)
 {
 	$file = fopen($filename, "r") or die("Unable to open " . $filename . "!");
     $index = fread($file, filesize($filename));

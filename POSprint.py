@@ -65,7 +65,7 @@ class App:
 
         # finally, write program to file then trigger batch file
         self.writeProgramToFile()
-        TriggerBatchFile()
+        self.TriggerBatchFile()
 
     def POSPrintRand(self):
         """ Print (random) index like above - POSPrint """
@@ -108,7 +108,7 @@ class App:
 
         # finally, write program to file then trigger batch file
         self.writeProgramToFile()
-        #TriggerBatchFile()
+        #self.TriggerBatchFile()
 
     def ResetClientIndex(self):
         """ Resets the client index in GUI - Not in txt file """
@@ -185,10 +185,19 @@ class App:
             if (x < 10):
                 data = "0" + str(x)
             self.client_previous_val.set(data)
+
+    def getProgramFromFile(self):
+        """ Get initial program name from file """
+        # read data from program holder txt file
+        with open("POSprint_ProgramHolder.txt", "r+") as f:
+            data = f.read()
+            # return data from text file
+            return data
         
     def __init__(self):
         """ Main function - see comments for details """
         PROGRAMS = [
+            "PS / RLAP Reception",
             "PS - AFP",
             "RLAP - RST",
             "RLAP - RSD"
@@ -289,10 +298,18 @@ class App:
             width=4, validate="key", validatecommand=valcmd
             ).grid(row=3,column=1)
 
-        # Create Option dropdown for program names
+        # Setup default program name text for OptionMenu
         self.program = StringVar()
-        self.program.set(PROGRAMS[0]) # default value
-        # set up OptionMenu
+        # - get program from text file
+        initialProgram = self.getProgramFromFile()
+        # - if there is data in file & data is part of PROGRAMS array,
+        # --- set data as initial program name
+        if len(initialProgram) > 0 and initialProgram in PROGRAMS:
+            self.program.set(initialProgram)
+        # - else, default to first element in array
+        else:
+            self.program.set(PROGRAMS[0])
+        # Create OptionMenu dropdown for program names
         option = apply(OptionMenu, (root, self.program) + tuple(PROGRAMS))
         option.pack()
         option.config(width=20, height=1, font=self.mediumTextFont)
