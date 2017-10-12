@@ -31,11 +31,11 @@ try {
 
 	// program name
 	$printer -> setTextSize(2, 2);
-	$printer -> text("PS / RLAP Reception" . "\n\n");
+	$printer -> text(getProgramName() . "\n\n");
 
 	// client index - in txt file
 	$printer -> setTextSize(5, 5);
-	$printer -> text(readClientIndex() . "\n");
+	$printer -> text(getClientIndex() . "\n");
 
 	// print date
 	$printer -> setTextSize(1, 1);
@@ -49,14 +49,14 @@ try {
 }
 
 // get program name from txt file
-function readProgramName()
+function getProgramName()
 {
 	$filename = "POSprint_ProgramHolder.txt";
 	return readFile($filename);
 }
 
 // get client index from txt file
-function readClientIndex()
+function getClientIndex()
 {
 	$filename = "POSprint_ClientIndexHolder.txt";
     return readFile($filename);
