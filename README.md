@@ -5,7 +5,8 @@
 In order to get POSprint to function properly, you should follow these steps:
 
 1. Install printer driver software (right-click, run as admin)
-    - on Devices and Printers, you will probably see 2 devices (1 printer, 1 unknown device when printer plugged in)
+    - On Devices and Printers, you will probably see 2 devices (1 printer, 1 unknown device when printer plugged in)
+    - In order to see the new printer under the "Printer" category, you may have to wait a while, or restart your computer.
     - Printer model = 80 Series (POS88V)
 2. Make sure printer is shared, make sure you remember the shared name
     - Go to Devices and Printers
