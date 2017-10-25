@@ -198,9 +198,7 @@ class App:
         """ Main function - see comments for details """
         PROGRAMS = [
             "PS / RLAP Reception",
-            "PS - AFP",
-            "RLAP - RST",
-            "RLAP - RSD"
+            "RLAP Checking"
         ]
 
         root=Tk()
