@@ -27,19 +27,23 @@ try {
 
 	// title
 	$printer -> setTextSize(5, 5);
-	$printer -> text("StARS\n");
+	$printer -> text( "StARS\n" );
 
 	// program name
 	$printer -> setTextSize(2, 2);
-	$printer -> text(getProgramName() . "\n\n");
+	$printer -> text( getProgramName() . "\n\n" );
 
-	// client index - in txt file
+	// get small number - in txt file
+	$printer -> setTextSize(1, 1);
+	$printer -> text( getSmallNum() . "\n" );
+
+	// get big number - in txt file
 	$printer -> setTextSize(5, 5);
-	$printer -> text(getClientIndex() . "\n");
+	$printer -> text( getBigNum() . "\n" );
 
 	// print date
 	$printer -> setTextSize(1, 1);
-	$printer -> text(date("d-M-Y") . "\n");
+	$printer -> text( date("d-M-Y") . "\n" );
 	
 	// cut paper & close printer connection
 	$printer -> cut();
@@ -55,10 +59,17 @@ function getProgramName()
 	return readMyFile($filename);
 }
 
-// get client index from txt file
-function getClientIndex()
+// get small number from txt file
+function getSmallNum()
 {
-	$filename = "POSprint_ClientIndexHolder.txt";
+	$filename = "POSprint_SmallNumHolder.txt";
+	return readMyFile($filename);
+}
+
+// get big number from txt file
+function getBigNum()
+{
+	$filename = "POSprint_BigNumHolder.txt";
     return readMyFile($filename);
 }
 
