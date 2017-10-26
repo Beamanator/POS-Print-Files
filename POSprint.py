@@ -241,9 +241,7 @@ class App:
         # possible program titles to go in dropdown and be printed
         PROGRAMS = [
             "PS / RLAP Reception",
-            "PS - AFP",
-            "RLAP - RST",
-            "RLAP - RSD"
+            "RLAP Checking"
         ]
 
         self.root=Tk()
