@@ -7,10 +7,15 @@
  *
  * Code originally from Michael's text-size.php example file
  */
-require __DIR__ . '..\..\escpos-php-development\escpos-php-development/autoload.php';
+require __DIR__ . './escpos-php-development/autoload.php';
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
+/*      Log initial text to make sure this file is being executed        */
+$log_init_print = "Print init - " . date("d-M-Y");
+logText($log_init_print);
+
+/*                Connect & Print Text to POS Printer                     */
 try {
 	/* Set up printer */
 	$connector = new WindowsPrintConnector("SPRT POS Printer");
@@ -80,4 +85,15 @@ function readMyFile($filename)
     $index = fread($file, filesize($filename));
     fclose($file);
     return $index;
+}
+
+// log text to $log_filename file
+function logText($text_to_log) {
+	$log_filename = "POSprint_LogHolder.txt";
+
+	// open with 'a' mode, which is append (creates file if it doesn't exist yet)
+	$log_file = fopen($log_filename, 'a') or die ("Cannot open file: " . $log_filename);
+
+	fwrite($log_file, "\n" . $log_init_print);
+	fclose($log_file);
 }
