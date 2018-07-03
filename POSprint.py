@@ -85,7 +85,7 @@ class App:
         self.writeNumToFile(small_num, 'small')
         self.writeNumToFile(big_num, 'big')
         self.writeProgramToFile()
-        self.TriggerBatchFile()
+        # self.TriggerBatchFile()
 
     def ResetClientIndex(self):
         """ Resets the client index in GUI - Not in txt file """
@@ -152,19 +152,25 @@ class App:
         # get next value to print
         next_val = self.rand_array[ self.rand_array_index ]
 
-        # update client_previous_val to next_num
-        self.client_previous_val.set( str(next_val) )
-
         # set big and small nums to print
         big_num = self.getLeadingZeroString( next_val )
         small_num = self.getLeadingZeroString( self.rand_array_index + r_from )
+
+        # update client_previous_val to next_num
+        self.client_previous_val.set( big_num )
 
         # finally, write program & nums to file then trigger batch file
         print('Printing nums: big (' + big_num + '); small (' + small_num + ')')
         self.writeNumToFile( big_num, 'big' )
         self.writeNumToFile( small_num, 'small' )
         self.writeProgramToFile()
-        self.TriggerBatchFile()
+        # self.TriggerBatchFile()
+
+        # call test function after delay
+        # self.root.after(1000, self.test, 4)
+    
+    # def test(self, num):
+    #     print('after delay: ' + str(num))
 
     def ClearRandData(self):
         """ Clear Data for Randomization """
