@@ -79,6 +79,8 @@ POSprint uses the following languages:
 1. Text files
     1. `POSprint_BigNumHolder.txt`
         - Holds the number to be printed in *large* text
+    1. `POSprint_ClientIndexHolder.txt`
+        - Holds the index of the current client for in-order printing
     1. `POSprint_LogHolder.txt`
         - Holds logged text (isn't printed, just logged)
     1. `POSprint_ProgramHolder.txt`
