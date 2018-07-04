@@ -44,12 +44,20 @@ That's it! Before you try printing for the first time, I would recommend you mak
 
 **Here are some common errors I've run into and how to solve (most of) them:**
 
-1. PHP Warning: (.../autoload.php): failed to open stream: No such file or directory in ...
+1. `PHP Warning: (.../autoload.php): failed to open stream: No such file or directory in ...`
     - Make sure line 10 of POSprint.php is looking at the correct directory for escpos-php-development/autoload.php
-1. Error with function readFile()
+1. Error with function `readFile()`
     - readFile exists in some other libraries used in this repo, so can't make a new function named readFile
 1. Everything looks good, but printer is not printing (related to #2).
     - If you don't see any comments from the batch file (like a line including `php POSprint.php` and `"Batch file done"`), the batch file is probably not being called, meaning something in the python code probably went wrong.
+1. `PHP Warning:  copy(\\DESKTOP-GFORQEO\<printer-name>): failed to open stream: No such file or directory in ...`
+    - Hopefully you're naming and sharing your printer as `"SPRT POS Printer"` where I put `"<printer-name>"` above.
+    - This error is caused by the POS printer not being shared *or* if the shared printer name is spelled differently than that name of the printer that the `POSprint.php` file is trying to connect to (see the `WindowsPrintConnector(<printer-name>)` function call).
+1. `PHP Warning:  PHP Startup: Unable to load dynamic library '<path-to...>\php_mbstring.dll - The specified module could not be found.`
+    - Full error continues with:
+        - `PHP Fatal error:  Uncaught Error: Call to undefined function Mike42\Escpos\PrintBuffers\mb_detect_encoding() in <path-to...>\escpos-php-development\src\Mike42\Escpos\PrintBuffers\EscposPrintBuffer.php:95`
+        - `Stack trace: #0 <path-to...>\escpos-php-development\src\Mike42\Escpos\Printer.php(979): Mike42\Escpos\PrintBuffers\EscposPrintBuffer->writeText('StARS\n') #1 <path-to...>\POSprint.php(35): Mike42\Escpos\Printer->text('StARS\n') #2 {main} thrown in <path-to...>\escpos-php-development\src\Mike42\Escpos\PrintBuffers\EscposPrintBuffer.php on line 95`
+    - This error occured when `extension_dir="..."` in the `php.ini` file had an incorrect directory set. Remember to set this to the location where the `/ext` folder can be found - INCLUDE the `/ext` at the end here!
 
 ## About
 
