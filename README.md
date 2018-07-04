@@ -49,7 +49,7 @@ That's it! Before you try printing for the first time, I would recommend you mak
 1. Error with function readFile()
     - readFile exists in some other libraries used in this repo, so can't make a new function named readFile
 1. Everything looks good, but printer is not printing (related to #2).
-    - No solution yet :(
+    - If you don't see any comments from the batch file (like a line including `php POSprint.php` and `"Batch file done"`), the batch file is probably not being called, meaning something in the python code probably went wrong.
 
 ## About
 

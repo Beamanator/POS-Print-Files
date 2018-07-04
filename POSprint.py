@@ -85,7 +85,7 @@ class App:
         self.writeNumToFile(small_num, 'small')
         self.writeNumToFile(big_num, 'big')
         self.writeProgramToFile()
-        # self.TriggerBatchFile()
+        self.TriggerBatchFile()
 
     def ResetClientIndex(self):
         """ Resets the client index in GUI - Not in txt file """
@@ -164,13 +164,7 @@ class App:
         self.writeNumToFile( big_num, 'big' )
         self.writeNumToFile( small_num, 'small' )
         self.writeProgramToFile()
-        # self.TriggerBatchFile()
-
-        # call test function after delay
-        # self.root.after(1000, self.test, 4)
-    
-    # def test(self, num):
-    #     print('after delay: ' + str(num))
+        self.TriggerBatchFile()
 
     def ClearRandData(self):
         """ Clear Data for Randomization """
