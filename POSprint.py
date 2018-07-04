@@ -156,7 +156,7 @@ class App:
         big_num = self.getLeadingZeroString( next_val )
         small_num = self.getLeadingZeroString( self.rand_array_index + r_from )
 
-        # update client_previous_val to next_num
+        # update client_previous_val to big_num that just got printed
         self.client_previous_val.set( big_num )
 
         # finally, write program & nums to file then trigger batch file
