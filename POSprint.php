@@ -12,7 +12,7 @@ use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 /*      Log initial text to make sure this file is being executed        */
-$log_init_print = "Print init - " . date("d-M-Y");
+$log_init_print = date("d-M-Y") . " - Print triggered";
 logText($log_init_print);
 
 /*                Connect & Print Text to POS Printer                     */
@@ -94,6 +94,6 @@ function logText($text_to_log) {
 	// open with 'a' mode, which is append (creates file if it doesn't exist yet)
 	$log_file = fopen($log_filename, 'a') or die ("Cannot open file: " . $log_filename);
 
-	fwrite($log_file, "\n" . $log_init_print);
+	fwrite($log_file, "\n" . $text_to_log);
 	fclose($log_file);
 }
