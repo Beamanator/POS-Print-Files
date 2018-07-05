@@ -84,14 +84,19 @@ POSprint uses the following languages:
         - Called by .bat file, connects to printer and reads data from .txt file(s)
     1. `POSprint.py`
         - Triggered by user, writes data to files and triggers .bat file
-1. Text files
+1. Text files that will be produced in your directory:
     1. `POSprint_BigNumHolder.txt`
+        - Created by `POSprint.py`
         - Holds the number to be printed in *large* text
     1. `POSprint_ClientIndexHolder.txt`
+        - Created by `POSprint.py`
         - Holds the index of the current client for in-order printing
     1. `POSprint_LogHolder.txt`
+        - Created by `POSprint.php`
         - Holds logged text (isn't printed, just logged)
     1. `POSprint_ProgramHolder.txt`
+        - Created by `POSprint.py`
         - Holds program text to be printed
     1. `POSprint_SmallNumHolder.txt`
+        - Created by `POSprint.py`
         - Holds the number to be printed in *small* text
