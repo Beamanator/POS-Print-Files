@@ -1,0 +1,6 @@
+# We don't need to download these files b/c they're overwritten constantly
+POSprint_BigNumHolder.txt
+POSprint_ClientIndexHolder.txt
+POSprint_LogHolder.txt
+POSprint_ProgramHolder.txt
+POSprint_SmallNumHolder.txt
